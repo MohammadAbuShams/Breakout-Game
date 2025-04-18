@@ -17,4 +17,4 @@ A classic **Breakout-style brick breaker game** built with **HTML, CSS, and Java
 
 ## 🌐 Live Demo
 Play the game now:
-👉 https://mohammadabushams.github.io/Breakout-Game/?fbclid=IwY2xjawJvOfNleHRuA2FlbQIxMAABHmPkTr71Jn4G6gfAY902dhgzUlt5t36rlkJ341CQ7kBANPlZ-NtE554dqZtO_aem_DUC4WPXWuR6buuoTc9hm3A
+👉 https://mohammadabushams.github.io/Breakout-Game/
