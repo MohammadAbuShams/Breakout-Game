@@ -3,10 +3,17 @@ const ctx = canvas.getContext("2d");
 const message = document.getElementById("message");
 const restartBtn = document.getElementById("restartBtn");
 
-canvas.width = 480;
-canvas.height = 320;
-
 let gameOver = false;
+
+// Responsive canvas setup
+function resizeCanvas() {
+  canvas.width = Math.min(window.innerWidth - 40, 480); // max 480px
+  canvas.height = 320;
+}
+resizeCanvas();
+window.addEventListener("resize", () => {
+  location.reload(); // reload to adjust layout
+});
 
 // Paddle
 const paddle = {
@@ -39,7 +46,6 @@ const brickWidth = (
   canvas.width - brickOffsetLeft - brickOffRight - brickPadding * (brickColumnCount - 1)
 ) / brickColumnCount;
 const brickHeight = 20;
-
 
 let bricks = [];
 
@@ -165,24 +171,52 @@ function showMessage(text) {
   restartBtn.style.display = "block";
 }
 
-// Keyboard events
+// Keyboard controls (desktop)
 function keyDown(e) {
   if (e.key === "Right" || e.key === "ArrowRight") paddle.dx = paddle.speed;
   else if (e.key === "Left" || e.key === "ArrowLeft") paddle.dx = -paddle.speed;
 }
-
 function keyUp(e) {
   if (["Right", "ArrowRight", "Left", "ArrowLeft"].includes(e.key)) paddle.dx = 0;
 }
-
 document.addEventListener("keydown", keyDown);
 document.addEventListener("keyup", keyUp);
+
+// Touch controls (mobile)
+canvas.addEventListener("touchstart", handleTouch);
+canvas.addEventListener("touchmove", handleTouch);
+canvas.addEventListener("touchend", () => {
+  paddle.dx = 0;
+});
+function handleTouch(e) {
+  e.preventDefault();
+  const touchX = e.touches[0].clientX - canvas.getBoundingClientRect().left;
+
+  if (touchX < paddle.x) {
+    paddle.dx = -paddle.speed;
+  } else if (touchX > paddle.x + paddle.width) {
+    paddle.dx = paddle.speed;
+  } else {
+    paddle.dx = 0;
+  }
+}
+
+// Optional: single tap left/right
+canvas.addEventListener("click", (e) => {
+  const x = e.clientX - canvas.getBoundingClientRect().left;
+  if (x < canvas.width / 2) {
+    paddle.dx = -paddle.speed;
+  } else {
+    paddle.dx = paddle.speed;
+  }
+  setTimeout(() => paddle.dx = 0, 100); // quick move
+});
 
 // Restart
 restartBtn.addEventListener("click", () => {
   document.location.reload();
 });
 
-// Init
+// Init game
 initBricks();
 update();
