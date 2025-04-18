@@ -1,0 +1,43 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #222;
+    color: white;
+    font-family: sans-serif;
+  }
+  
+
+  .game-container {
+    position: relative;
+  }
+  
+  canvas {
+    background: #000;
+    display: block;
+    border: 2px solid #fff;
+  }
+  
+  #message {
+    margin-top: 20px;
+    font-size: 2rem;
+    display: none;
+    text-align: center;
+  }
+  
+  #restartBtn {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    display: none;
+  }
+  
